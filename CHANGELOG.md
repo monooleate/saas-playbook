@@ -6,6 +6,26 @@ versioned by *matrix shape*: bumping the major number when topics are added or
 removed, the minor when an existing topic gains a major rewrite, and the patch
 for everything else.
 
+## [0.3.0] — 2026-05-02
+
+### Added
+
+- **`ai/claude/` projekt-onboarding kit** — sablonok új SaaS projekt
+  Claude Code-os indításához:
+  - `CLAUDE.template.md` — projekt-alkotmány sablon (doksi-sync szabály
+    + CLAUDE.md self-update szabály + end-of-session checklist).
+  - `DOC-GAP-AUDIT.template.md` — sablon a doksi-fedettség + quality
+    audit + Phase 1/2/3 roadmap mátrixhoz.
+  - `END-OF-SESSION-CHECKLIST.md` — 1 perces review minden session
+    végén, akár emberi review akár Claude prompt formájában.
+  - `README.md` — használati útmutató.
+
+### Changed
+
+- Root `README.md` egy új szakasszal bővült ("Starting a new SaaS
+  project? Use the AI onboarding kit"), ami a `ai/claude/` template-ekre
+  irányít.
+
 ## [0.2.0] — 2026-05-01
 
 ### Added

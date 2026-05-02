@@ -138,6 +138,31 @@ NN-topic/
 
 ---
 
+## Starting a new SaaS project? Use the AI onboarding kit
+
+Every new project that uses this playbook should start with two
+boilerplate files copied from [`ai/claude/`](./ai/claude/):
+
+- **`CLAUDE.template.md`** → copy to your project root as `CLAUDE.md`.
+  The "project constitution" — Claude Code reads it at the start of every
+  session. Includes doc-sync rules and a CLAUDE.md self-update rule.
+- **`DOC-GAP-AUDIT.template.md`** → copy to `internal-docs/DOC-GAP-AUDIT.md`.
+  The single source of truth for documentation coverage, quality audit, and
+  the Phase 1/2/3 roadmap.
+
+Plus an **`END-OF-SESSION-CHECKLIST.md`** which is the 1-minute review
+Claude (or you) runs at the end of each session to make sure code changes
+are reflected in docs.
+
+Two living examples of these templates fully filled in:
+
+- **Grabit** (`bookolj/CLAUDE.md` + `bookolj/internal-docs/DOC-GAP-AUDIT.md`)
+- **CutOptim** (`opticut/CLAUDE.md` + `opticut/internal-docs/DOC-GAP-AUDIT.md`)
+
+See [`ai/claude/README.md`](./ai/claude/README.md) for usage details.
+
+---
+
 ## Real-world references cited throughout
 
 Whenever this playbook makes a claim like "Stripe does X," there is a link. The
