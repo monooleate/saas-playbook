@@ -66,6 +66,17 @@ frissítés szükséges").
 
 [ ] Új feature érinti az i18n string-eket?
     → minden támogatott nyelv frissítve (vagy TODO marker)?
+
+[ ] Doksi-írás vagy feature-implementáció során "tisztázandó" / "később
+    kifejteni" / "homályos" / hiányzó-de-fontos típusú felfedezés volt?
+    → új gap rögzítve a topic-doksi végén levő `## Open gaps &
+      sprint-pickable tasks` szakaszban (ID: `G-NN-NN`) ÉS
+      DOC-GAP-AUDIT 5. szekciójában (Phase-megfelelő bucket)?
+      Mindkettőben — különben elvész vagy fragmentálódik.
+
+[ ] Topic-doksi végén levő gap-szakasz módosult session során
+    (új gap hozzáadva / lezárt gap áthúzva / leírás változott)?
+    → DOC-GAP-AUDIT 5. szekció is reflektálja a változást?
 ```
 
 ### CLAUDE.md self-update

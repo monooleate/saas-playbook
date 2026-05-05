@@ -7,13 +7,16 @@ shaped so you can plan sprints from it.
 
 - [`MATRIX.md`](./MATRIX.md) — **start here**. One row per topic, with
   remaining work, effort estimate, priority (P0/P1/P2), and
-  dependencies. This is the file you sort and slice from to plan a
-  sprint.
+  dependencies. Topic-level rollup; sort and slice from here to scope
+  a sprint.
+- [`GAPS.md`](./GAPS.md) — **item-level backlog**. One row per concrete
+  gap-derived task across all topics; mirror of each topic's
+  end-of-`README.md` `## Open gaps & sprint-pickable tasks` section.
+  Sprint stories are picked from here.
 - [`sprint-template.md`](./sprint-template.md) — copy this when
   starting a new sprint planning doc.
 - [`sprints/`](./sprints/) — actual sprint plans live here, one
   markdown file per sprint (e.g. `sprints/2026-W19-billing.md`).
-  Empty until you start.
 
 ## Workflow
 
@@ -64,7 +67,18 @@ If the project ever moves to GitHub Issues, the MATRIX rows map
 
 ## Granularity
 
-`MATRIX.md` rows are *topic-level*. Each row points at concrete files
-to fill in (the topic's `checklist.md`, `best-practices.md`, etc.).
-That granularity is enough for sprint pickup; finer granularity goes
-into the sprint plan itself.
+Three levels, by design:
+
+- **`MATRIX.md`** — *topic-level*. One row per topic, one-sentence
+  "Remaining work" cell. Use to filter by priority / dependencies.
+- **`GAPS.md`** — *item-level*. One row per concrete sprint-pickable
+  task (e.g. "DKIM/SPF/DMARC walkthrough", "RLS policy patterns").
+  Mirror of the per-topic `## Open gaps & sprint-pickable tasks`
+  section at the end of each topic `README.md`.
+- **`sprints/YYYY-WNN-*.md`** — *story-level*. Picked from `GAPS.md`
+  into stories with acceptance criteria and a daily log.
+
+The matrix philosophy (see [`../CLAUDE.md`](../CLAUDE.md)) is that each
+topic produces three outputs: content, gap analysis, sprint-pickable
+tasks. `GAPS.md` is where output #3 collects centrally; the topic doc's
+end-of-file section is the same items in context.

@@ -53,11 +53,51 @@ fix-et összevet a CLAUDE.md doksi-szinkron szabályaival.
 ## Az alapelv
 
 - **CLAUDE.md** = **how we work here** — projekt-konvenciók, kódolási stílus,
-  doksi-szinkron szabályok.
+  doksi-szinkron szabályok, **mátrix-filozófia** + **két helyes gap-workflow**.
 - **DOC-GAP-AUDIT.md** = **what's documented and what isn't** — fedettség
-  state-machine + quality audit + roadmap.
+  state-machine (3. szekció) + quality audit (4. szekció) + **sprint-pickable
+  backlog** (5. szekció Phase 1/2/3).
 - A kettő együtt biztosítja, hogy Claude Code **minden session után**
-  következetesen frissítse a kódhoz tartozó doksikat.
+  következetesen frissítse a kódhoz tartozó doksikat **és** a sprint-
+  backlog-ot (DOC-GAP-AUDIT 5. szekció + topic-doksi végén levő gap-
+  szakasz, sync-ben).
+
+### A mátrix-filozófia röviden
+
+Minden dokumentált rendszer-elem (= egy `internal-docs/<topic>.md`
+fájl, ami leképezi a `saas-playbook` 24-es topic egyikét) **három
+outputot termel** session során:
+
+1. **Tartalom** — a doksi maga.
+2. **Gap analysis** — mi maradt homályos, hiányzik, vagy nincs még
+   a kódhoz képest dokumentálva.
+3. **Sprint-pickable taskok** — a gap-ekből származó konkrét, becsülhető
+   feladatok.
+
+Output #2 + #3 **két helyen él, szándékos duplikációval:**
+- A topic-doksi végén `## Open gaps & sprint-pickable tasks` szakaszként
+  (kontextusban; ID: `G-NN-NN`).
+- DOC-GAP-AUDIT.md 5. szekciójában (centrálisan; sprint-pickup forrás).
+
+A két hely sync-ben tartása a CLAUDE.md self-update szabály része.
+
+### Milyen viszonyban van a saas-playbook saját CLAUDE.md-jével?
+
+A playbook gyökerében (`/CLAUDE.md`) van egy **másik** CLAUDE.md, ami
+a playbook saját meta-projektjét írja le (24 topic, MATRIX.md, GAPS.md,
+Stage 0–4 lifecycle). Ez a mostani template a **derived SaaS-okhoz**
+való — a kettő **különböző audience-t** szolgál:
+
+| | Playbook saját CLAUDE.md | Derived SaaS CLAUDE.md (ez) |
+|---|---|---|
+| **Mit ír le** | Hogy hogy bővítjük a 24 topicot | Hogy a derived SaaS-ot hogy építjük |
+| **Topic-leképzés** | `NN-topic/README.md` mappastruktúra | `internal-docs/<topic>.md` fájlok |
+| **Backlog központi fájl** | `tasks/GAPS.md` | `internal-docs/DOC-GAP-AUDIT.md` 5. szekció |
+| **Mátrix forrás** | `tasks/MATRIX.md` | DOC-GAP-AUDIT 3. szekció |
+| **Sprint-fájlok** | `tasks/sprints/` | `{{SPRINT_LOG_FILE}}` |
+
+A **mátrix-filozófia** és a **két helyes gap-workflow** mindkettőre
+érvényes — csak a fájlok neve és felépítése más.
 
 ## Élő példák
 

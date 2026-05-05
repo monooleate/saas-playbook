@@ -55,6 +55,60 @@ Ha csak egy dolgot olvasol el, ez legyen:
 
 ---
 
+## A mátrix-filozófia (központi minta)
+
+Minden dokumentált rendszer-elem (= egy `internal-docs/<topic>.md` fájl,
+ami leképezi a `saas-playbook` 24-es topic egyikét) **három párhuzamos
+outputot termel** session során:
+
+1. **Tartalom** — a doksi maga (rendszer leírása, döntések, kapcsolatok,
+   kód-kapcsolatok).
+2. **Gap analysis** — mi maradt homályos, mi hiányzik, mi nincs még
+   dokumentálva a kódhoz képest, hol van inkonzisztencia.
+3. **Sprint-pickable taskok** — a gap-ekből származó konkrét, becsülhető
+   (S/M/L), prioritizált (P0/P1/P2) feladatok.
+
+A doksi-írás nem csak content-termelés — egyszerre felfedezés és backlog-
+építés. Ha egy session csak az #1-est szállítja, a #2-#3 elveszik.
+
+### Hol élnek a gap-ek és a taskok (két hely, szándékos duplikáció)
+
+Output #2 + #3 **két helyen** él:
+
+- **A doksi végén** (`internal-docs/<topic>.md` legutolsó szakasz:
+  `## Open gaps & sprint-pickable tasks`) — kontextusban; aki a doksit
+  olvassa, egy görgetésre lássa "mi még nincs lefedve, mi a következő
+  lépés".
+- **Centrálisan a `internal-docs/DOC-GAP-AUDIT.md` 5. szekciójában**
+  (Phase 1 / 2 / 3 gap-lista, prompt-ready scope-pal) — sprint-pickup
+  forrás; sprint-tervező egy fájlt szkennel, nem 24-et.
+
+**ID konvenció:** `G-<topic-number>-<sequence>` (pl. `G-04-01` az első
+email-gap, `G-14-03` a harmadik data-ops-gap). Az ID a forrásra mutat
+vissza, és a két hely között hard-linkként működik.
+
+A két hely **muszáj sync-ben** lenni — ha egy gap csak az egyik helyen
+van, a self-update szabály (lent) hiányos. Sprint-tervezéskor
+DOC-GAP-AUDIT.md 5. szekcióból pickelünk; doksi-olvasáskor a doksi
+végén látjuk ugyanazt.
+
+### Mit gyűjt mi (gyors referencia)
+
+| Fájl | Mit gyűjt | Granularitás |
+|------|-----------|--------------|
+| `internal-docs/DOC-GAP-AUDIT.md` 3. szekció | Topic doksi-fedettség (mi van / nincs / félig) | Topic-szint |
+| `internal-docs/DOC-GAP-AUDIT.md` 4. szekció | Quality audit — meglévő doksik konkrét hibái (Q1–Q…) | Hiba-szint |
+| `internal-docs/DOC-GAP-AUDIT.md` 5. szekció | **Sprint-pickable backlog** — gap-derived taskok Phase 1/2/3-ba bontva | Item-szint |
+| `internal-docs/<topic>.md` vége | Topic saját gap-jei és sprint-pickable taskjai | Item-lista, kontextusban |
+| `{{SPRINT_LOG_FILE}}` | Aktív sprintek + retro | Story-szint |
+
+A 4 + sprint-szint redundáns, szándékosan. Sprint-tervező a 3.
+szekcióból szűr topicra, az 5. szekcióból pickel itemeket, a sprint-
+fájlba bemásolja, a topic doc-ban látja a kontextust + a 4. szekcióból
+látja a quality-fix-eket amik mellé összefűzhetők.
+
+---
+
 ## Working style
 
 - **Autonóm végrehajtás** — ne kérdezz a session minden lépése között.
@@ -101,6 +155,7 @@ Ha csak egy dolgot olvasol el, ez legyen:
 | Email küldési flow | `{{EMAIL_DOC}}` |
 | Tier / addon / limit | `{{TIER_DOC}}` |
 | **Bármilyen jelentős fix vagy új feature** | **`internal-docs/CHANGELOG.md`** ÚJ bejegyzéssel |
+| **Új gap / sprint-pickable task felfedezve** | **`internal-docs/<topic>.md` vége** (`## Open gaps & sprint-pickable tasks` szakasz, ID: `G-NN-NN`) **+ `internal-docs/DOC-GAP-AUDIT.md` 5. szekció** (Phase-megfelelő bucket) — **mindkét helyre, ugyanabban a sessionben** |
 
 ### Triggerek — automatikus felismerés
 
@@ -112,6 +167,7 @@ A session során ezek a minták KÖTELEZŐ doksi-frissítést jelentenek:
 - **Új cron endpoint** → `{{CRON_DOC}}`.
 - **`pricing.json` / `limits.json` módosítás** → `{{PRICING_DOC}}` + `{{TIER_DOC}}`.
 - **Új modul a `lib/`-ben** → `{{ARCH_DOC}}` (struktúra szakasz).
+- **Doksi-írás session során "ezt később ki kéne fejteni" / "homályos" / "tisztázandó" felmerült** → új gap a forrás-doksi végén ÉS DOC-GAP-AUDIT 5. szekcióban. Ne hagyd csak a sessionben — különben elveszik.
 
 ### Speciális szabály — incidensek
 
@@ -143,7 +199,9 @@ A `CLAUDE.md` is "élő doksi" — minden session vége előtt ellenőrizd:
    frissítés" dátumot.
 5. **DOC-GAP-AUDIT.md 4. szekció Q-bejegyzés** lefuttat egy javítást,
    ami érinti a CLAUDE.md-t? → CLAUDE.md is frissül.
-6. **Új konvenció vagy work-style szabály** felmerül? → "Working style"
+6. **Új gap / sprint-pickable task** felfedezve? → topic-doksi végén
+   ÉS DOC-GAP-AUDIT 5. szekcióban, ID-konvencióval (`G-NN-NN`).
+7. **Új konvenció vagy work-style szabály** felmerül? → "Working style"
    bővítve.
 
 A CLAUDE.md fejléc-dátumát ("Utolsó frissítés: ...") **csak** akkor mozdítsd
@@ -159,6 +217,8 @@ előre, ha tényleges változtatás történt — **ne** triviális csere miatt.
 [ ] Új API route? → API doksi frissítve?
 [ ] Új user-facing feature? → CHANGELOG bejegyzés bekerült?
 [ ] Billing flow változás? → érintett provider-doksi frissítve?
+[ ] Új gap / sprint-pickable task felfedezve? → topic-doksi végén ÉS DOC-GAP-AUDIT 5. szekcióban (mindkettő, sync-ben)?
+[ ] Topic-doksi végén levő gap-szakasz módosult? → DOC-GAP-AUDIT 5. szekció is reflektálja?
 [ ] DOC-GAP-AUDIT-ben Q-bejegyzés javítva? → CLAUDE.md is frissült (ha érinti).
 [ ] CLAUDE.md self-update szabály szerinti változás? → CLAUDE.md frissítve?
 ```
@@ -169,13 +229,27 @@ előre, ha tényleges változtatás történt — **ne** triviális csere miatt.
 
 ## Sprint munkafolyamat
 
-1. **Olvasd a `DOC-GAP-AUDIT.md`-t** (negyedévente kötelező; sprint
-   tervezéskor ajánlott).
-2. **Új sprintet** vegyél fel a {{SPRINT_LOG_FILE}}-be.
-3. **Implementáld a feature-t.**
-4. **Doksi frissítés** a fenti táblázat szerint (még a session vége előtt).
-5. **CHANGELOG bejegyzés**.
-6. **Sprint vége: záró bejegyzés** — eredmények, tanulságok.
+1. **Olvasd a `DOC-GAP-AUDIT.md` 5. szekciót** (negyedévente kötelező;
+   sprint tervezéskor ajánlott). Ez a sprint-pickable backlog forrása.
+2. **Pick 3–8 itemet** az 5. szekcióból + Q-bejegyzéseket a 4.-ből,
+   amik egy 1–2 hetes sprintbe férnek.
+3. **Új sprintet** vegyél fel a {{SPRINT_LOG_FILE}}-be (vagy
+   `sprints/YYYY-WNN-<theme>.md` fájlba), pickelt item-ekkel mint
+   story-k.
+4. **Implementáld a feature-t.**
+5. **Doksi frissítés** a fenti táblázat szerint, **még a session vége
+   előtt**. Ez magába foglalja:
+   - A feature által érintett `internal-docs/<topic>.md` tartalmi
+     frissítését.
+   - Új gap-ek / következő-iteráció-feladatok hozzáadását a doksi
+     végén levő `## Open gaps & sprint-pickable tasks` szakaszhoz
+     ÉS DOC-GAP-AUDIT 5. szekcióhoz (sync-ben).
+   - Befejezett item áthúzása / státusz-változtatása DOC-GAP-AUDIT-ban.
+6. **CHANGELOG bejegyzés**.
+7. **Sprint vége: záró bejegyzés** a sprint-fájlban — eredmények,
+   tanulságok, következő sprint javaslat. Lezárt itemek statusz-
+   frissítése DOC-GAP-AUDIT-ban (5. szekció: ✅ vagy áthelyezés
+   "Done" szakaszba).
 
 ---
 

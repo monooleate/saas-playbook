@@ -153,6 +153,20 @@ el lehessen indítani a doksi megírását.
 
 ## 5. Hiányok fázisokra bontva — Phase 1 / 2 / 3
 
+> **Ez a szekció a sprint-pickable backlog központi gyűjtője.**
+>
+> Minden item itt **mirror-je** annak, ami a vonatkozó
+> `internal-docs/<topic>.md` végén szerepel `## Open gaps &
+> sprint-pickable tasks` szakaszban (ID-konvenció: `G-NN-NN`). A két
+> hely közti sync KÖTELEZŐ — ld. `CLAUDE.md` self-update szabálya.
+>
+> **Sprint-tervezéskor innen pickelünk** 3–8 itemet egy 1–2 hetes
+> sprintbe. A pickelt itemek bekerülnek a sprint-fájlba (
+> `{{SPRINT_LOG_FILE}}` vagy `sprints/YYYY-WNN-<theme>.md`) story-ként.
+>
+> Ha egy item lezárult: státusz ✅, vagy áthelyezni egy "Done" alszekcióba
+> a szekció végén — ne töröld, hogy a history kereshető maradjon.
+
 ### Phase 1 — NOW (production-blokkoló) — P0
 
 > Ha ezekből hiányzik valami, incidens-recovery lassabb, vagy közvetlen
