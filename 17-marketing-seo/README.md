@@ -23,6 +23,14 @@ part Google ever sees. Topic 17 covers:
 8. **Vs. competitor pages** — `/grabit-vs-calendly` style.
 9. **Public-facing case studies / testimonials**.
 
+## Playbooks
+
+- [**Unified JSON-LD `@graph`**](./schema-graph-playbook.md) — battle-tested,
+  stack-agnostic prompt + verification scanner for consolidating scattered
+  structured-data blocks into one connected, AI-citable entity graph per page
+  (SEO + GEO). Fixes dangling `@id` refs and unifies the founder/author entity
+  across a brand network.
+
 ## Why it matters
 
 For solo founders, organic search is the cheapest acquisition channel.
