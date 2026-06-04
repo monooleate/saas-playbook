@@ -1,11 +1,11 @@
 # GAPS — Item-level backlog
 
 > **What this is.** A central rollup of every concrete gap-derived task
-> across all 24 topics. One row per task. Mirror of the per-topic
+> across all 25 topics. One row per task. Mirror of the per-topic
 > `## Open gaps & sprint-pickable tasks` sections at the end of each
 > topic's `README.md`.
 >
-> **Why it exists.** Sprint planners scan one file, not 24. The matrix
+> **Why it exists.** Sprint planners scan one file, not 25. The matrix
 > philosophy (see `../CLAUDE.md`) treats every topic as a row that
 > produces three outputs: content, gap analysis, sprint-pickable tasks.
 > This file is where output #3 collects.

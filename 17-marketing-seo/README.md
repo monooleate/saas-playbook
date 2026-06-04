@@ -23,13 +23,20 @@ part Google ever sees. Topic 17 covers:
 8. **Vs. competitor pages** — `/grabit-vs-calendly` style.
 9. **Public-facing case studies / testimonials**.
 
-## Playbooks
+## Related
 
-- [**Unified JSON-LD `@graph`**](./schema-graph-playbook.md) — battle-tested,
-  stack-agnostic prompt + verification scanner for consolidating scattered
-  structured-data blocks into one connected, AI-citable entity graph per page
-  (SEO + GEO). Fixes dangling `@id` refs and unifies the founder/author entity
-  across a brand network.
+All technical SEO + GEO work (crawler access, structured data, `llms.txt`,
+citability, E-E-A-T, validation) now lives in its own topic for clarity:
+
+- [**25 — SEO & GEO (AI Search)**](../25-seo-geo/) — the checklist,
+  gotchas, and the **[Unified JSON-LD `@graph` playbook](../25-seo-geo/schema-graph-playbook.md)**
+  (battle-tested prompt + verification scanner for consolidating scattered
+  structured-data blocks into one connected, AI-citable entity graph per
+  page). This was previously hosted here; it moved to topic 25 so all
+  structured-data material sits together.
+
+Topic 17 stays focused on *building the marketing site*; topic 25 covers
+*making it findable and citable*.
 
 ## Why it matters
 

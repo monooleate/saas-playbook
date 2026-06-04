@@ -1,12 +1,12 @@
 # Roadmap — Reading & Implementation Order
 
-The numeric topic IDs (01–24) preserve the matrix order in `README.md`.
-This file rearranges the same 24 topics into the **order you'd actually
+The numeric topic IDs (01–25) preserve the matrix order in `README.md`.
+This file rearranges the same 25 topics into the **order you'd actually
 implement them** in a real SaaS.
 
 If you're using the playbook to plan a new SaaS:
 1. Read this roadmap top to bottom.
-2. Open [`tasks/MATRIX.md`](./tasks/MATRIX.md) — same 24 rows with
+2. Open [`tasks/MATRIX.md`](./tasks/MATRIX.md) — same 25 rows with
    effort, priority, dependencies.
 3. Build sprints from `tasks/MATRIX.md`, store sprint plans in
    `tasks/sprints/`.
@@ -54,6 +54,7 @@ Goal: turn deployable into something someone can sign up for.
 | **22** | Accessibility | Continuous | Build into components from day 1; cheaper than retrofitting |
 | **06** | Onboarding | 3–5 days | Activation is the conversion lever |
 | **17** | Marketing Site & SEO | 5–15 days | Public face of the product |
+| **25** | SEO & GEO (AI Search) | 2–5 days | Make the marketing site crawlable, structured, and AI-citable — runs right after 17 |
 | **15** | Legal & Compliance | 1–3 days | ToS, Privacy, GDPR endpoints — required before first paying customer |
 | **23** | User Documentation | 2–5 days | Cornerstone articles before launch |
 | **16** | Customer Support & Changelog | 1–2 days | Inbox + status page + changelog page |

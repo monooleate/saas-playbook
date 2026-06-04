@@ -15,7 +15,7 @@ outline, ❌ blocked.
 
 ---
 
-## Master matrix (24 rows)
+## Master matrix (25 rows)
 
 | #  | Topic | Stage | Priority | Effort | Status | Depends on | Remaining work |
 |----|-------|-------|----------|--------|--------|------------|----------------|
@@ -31,6 +31,7 @@ outline, ❌ blocked.
 | 22 | Accessibility | 2 — Growth | P0 | Continuous | 📋 | 21 | Component-by-component a11y checklist, keyboard testing script, screen reader playbook, axe-core CI integration. |
 | 06 | Onboarding | 2 — Growth | P0 | M | 📋 | 02, 04, 21 | 5-minute path script, setup checklist UI patterns, drip cadence, activation event taxonomy. |
 | 17 | Marketing Site & SEO | 2 — Growth | P0 | L | 📋 | 21 | Astro setup walkthrough, OG image generation, sitemap generation, programmatic SEO templates. |
+| 25 | SEO & GEO (AI Search) | 2 — Growth | P1 | M | ✅ | 17 | (Done) — checklist, best-practices, gotchas, sveltekit example, unified `@graph` playbook + scanner. Distilled from matekmegoldasok/cutoptim/grabit/trackwell. |
 | 15 | Legal & Compliance | 2 — Growth | P0 | S | 📋 | — | Template ToS structure, cookie banner decision tree, GDPR endpoint patterns, DPA template, consent record schema. |
 | 23 | User Documentation | 2 — Growth | P1 | M | 📋 | 17 | Astro Starlight setup, article authoring guide, search setup, inline-help patterns. |
 | 16 | Customer Support & Changelog | 2 — Growth | P1 | S | 📋 | 17 | 10 canned response templates, changelog publishing workflow, status-page patterns, feedback widget. |
@@ -53,8 +54,8 @@ outline, ❌ blocked.
 
 (01 and 03 already ✅ — leaving 14 P0 rows of remaining work.)
 
-### P1 (should) — 6 rows
-23, 16, 12, 08, 07, 05
+### P1 (should) — 7 rows
+23, 16, 12, 08, 07, 05, 25✅
 
 ### P2 (nice-to-have) — 2 rows
 09, 18

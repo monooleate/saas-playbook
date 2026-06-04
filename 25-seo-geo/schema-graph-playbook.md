@@ -1,4 +1,4 @@
-# 17 — Unified JSON-LD `@graph` Playbook (SEO/GEO)
+# 25 — Unified JSON-LD `@graph` Playbook (SEO/GEO)
 
 > **Status:** Battle-tested. Executed on a real 2-site Astro codebase
 > (309 + 137 pages) with 0 regressions.

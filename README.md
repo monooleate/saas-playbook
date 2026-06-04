@@ -33,13 +33,13 @@ Vercel):"** it's how the benchmark products do it, with a link to the source.
 
 ## Topic matrix
 
-24 topics across the SaaS lifecycle. The numeric ID preserves the matrix
+25 topics across the SaaS lifecycle. The numeric ID preserves the matrix
 order; **the reading order is in [`ROADMAP.md`](./ROADMAP.md)**, organized
 by SaaS lifecycle stage (pre-build → foundation → growth → operations →
 extension).
 
 If you're using the playbook to plan a real product, start with
-[`tasks/MATRIX.md`](./tasks/MATRIX.md) — it's the same 24 rows with
+[`tasks/MATRIX.md`](./tasks/MATRIX.md) — it's the same 25 rows with
 estimated effort, priority, and dependencies, ready to feed into sprint
 planning.
 
@@ -69,6 +69,7 @@ planning.
 | 22 | [Accessibility](./22-accessibility/)                    | Built-in from day 1                    | Continuous          | 📋 Outline  |
 | 23 | [User Documentation & Help Center](./23-user-docs/)     | Before public launch                   | 2–5 days            | 📋 Outline  |
 | 24 | [Launch Playbook](./24-launch-playbook/)                | 2–3 weeks before public launch         | 5–10 days           | 📋 Outline  |
+| 25 | [SEO & GEO (AI Search)](./25-seo-geo/)                  | Before public launch; ongoing          | 2–5 days           | ✅ Filled    |
 
 **Legend:** ✅ Full content available · 📋 Outline / scope only — content forthcoming.
 
@@ -105,6 +106,14 @@ Short version of the second audit:
   distinct from changelog and API docs).
 - **Added 24 — Launch Playbook** (one-time, high-leverage event;
   Product Hunt, beta program, day-of mechanics).
+
+**Third audit** (added topic 25) — SEO & GEO (AI Search), distilled from
+four production sites' SEO/GEO work. Split out from topic 17 (Marketing
+Site & SEO): 17 is about *building the marketing site*, 25 is the
+cross-cutting *technical SEO + Generative Engine Optimization* discipline
+(crawler access, JSON-LD `@graph`, `llms.txt`, citability, E-E-A-T,
+validation). The unified `@graph` playbook moved from 17 into 25 so all
+structured-data material lives together.
 
 ---
 

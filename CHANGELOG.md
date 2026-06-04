@@ -6,6 +6,31 @@ versioned by *matrix shape*: bumping the major number when topics are added or
 removed, the minor when an existing topic gains a major rewrite, and the patch
 for everything else.
 
+## [0.4.0] — 2026-06-04
+
+### Added
+
+- **New topic 25 — SEO & GEO (AI Search)** — full content (README,
+  checklist, best-practices, gotchas, `examples/sveltekit-supabase.md`),
+  distilled from the SEO/GEO work of four production sites:
+  matekmegoldasok.hu (Deno Fresh), cutoptim.com (Astro), grabit.hu
+  (Astro + SvelteKit), trackwell.eu (Astro). Every checklist item carries
+  a provenance tag mapping it to the project that paid for the lesson.
+  Covers the full pipeline: crawler access → indexation → JSON-LD `@graph`
+  → citability → E-E-A-T, plus a validation harness and llms.txt.
+
+### Changed
+
+- **Moved the unified JSON-LD `@graph` playbook** from
+  `17-marketing-seo/schema-graph-playbook.md` to
+  `25-seo-geo/schema-graph-playbook.md`, so all structured-data material
+  lives in one topic. Topic 17 now stays focused on *building the
+  marketing site*; topic 25 covers the cross-cutting *technical SEO + GEO*
+  discipline. `17-marketing-seo/README.md` updated to cross-reference 25.
+- Root `README.md` matrix expanded from 24 to 25 topics (+ third-audit
+  note). `ROADMAP.md` (Stage 2 — Growth) and `tasks/MATRIX.md` updated
+  to 25 rows.
+
 ## [0.3.0] — 2026-05-02
 
 ### Added
