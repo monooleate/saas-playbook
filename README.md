@@ -147,6 +147,23 @@ NN-topic/
 
 ---
 
+## Backlog, roles & process: the `agile/` folder
+
+The topic folders tell you *how to build* each subsystem; [`tasks/`](./tasks/)
+tracks *what's left to do*. The [`agile/`](./agile/) folder covers the
+product-management layer in between — **what you're building, for whom, and in
+what order**:
+
+- [`agile/user-story-template.md`](./agile/user-story-template.md) — story format, fields, status legend, INVEST.
+- [`agile/backlog-template.md`](./agile/backlog-template.md) — how to organize a backlog by epic/module.
+- [`agile/roles-and-rbac.template.md`](./agile/roles-and-rbac.template.md) — role hierarchy + permission matrix to fill in.
+- [`agile/process/`](./agile/process/) — the six SDLC phases and the BA/PO methodology in brief.
+- [`agile/examples/industrial-shift-log.md`](./agile/examples/industrial-shift-log.md) — a worked, filled-in backlog excerpt.
+
+Copy it into a new project alongside the AI onboarding kit below.
+
+---
+
 ## Starting a new SaaS project? Use the AI onboarding kit
 
 Every new project that uses this playbook should start with two

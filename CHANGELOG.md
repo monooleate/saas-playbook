@@ -6,6 +6,26 @@ versioned by *matrix shape*: bumping the major number when topics are added or
 removed, the minor when an existing topic gains a major rewrite, and the patch
 for everything else.
 
+## [0.4.2] — 2026-06-05
+
+### Added
+
+- **`agile/` — new top-level folder** for the product-management layer (backlog,
+  roles, process), complementing `tasks/` (gap→sprint planning) and the topic
+  folders (how-to-build). Extracted and genericized from a real project (OPEREX
+  industrial shift-log SaaS). Contents:
+  - `user-story-template.md` — story format, fields, status legend, INVEST checklist.
+  - `backlog-template.md` — organizing a backlog by epic/module; two linked views (stories ↔ gaps).
+  - `roles-and-rbac.template.md` — role hierarchy + role × action permission matrix template.
+  - `process/sdlc-phases.md` — the six SDLC phases (who/what/which docs).
+  - `process/ba-po-methodology.md` — BA vs PO, Product Backlog, User Story, MVP.
+  - `examples/industrial-shift-log.md` — a worked, filled-in backlog excerpt (10-role
+    hierarchy, module-grouped stories, a domain quirk driving the access model).
+- Root `README.md` — new section pointing to `agile/`.
+
+> Patch bump (not minor): `agile/` is a new cross-cutting folder, not a change to
+> the 25-topic matrix shape.
+
 ## [0.4.1] — 2026-06-05
 
 ### Added
