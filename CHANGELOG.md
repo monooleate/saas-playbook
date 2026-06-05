@@ -6,6 +6,29 @@ versioned by *matrix shape*: bumping the major number when topics are added or
 removed, the minor when an existing topic gains a major rewrite, and the patch
 for everything else.
 
+## [0.4.1] — 2026-06-05
+
+### Added
+
+- **Topic 14 — `supabase-performance-checklist.md`** — a portable,
+  vendor-neutral-where-possible Supabase **review gate** (deep-dive artifact,
+  following the `25-seo-geo/schema-graph-playbook.md` precedent). Distilled from
+  Supabase changelog entries, official performance docs, and a real production
+  Supabase SaaS (cutoptim.com). Eight sections — RLS, indexing/query analysis,
+  pooling, compute & disk, read replicas, caching/CDN, pgvector, PG version —
+  each item a decision/check with published benchmark numbers (e.g. RLS
+  `(select …)`: 11,000 ms → 10 ms), plus two "what to do when it's slow / when
+  RLS misbehaves" triage orders. `14-data-ops/README.md` gains a "Files in this
+  topic" pointer.
+- The checklist's §1 **"Security-adjacent RLS traps"** — production-incident
+  lessons that surface as *the policy you indexed never runs*: views over RLS
+  tables must carry `WITH (security_invoker = true)` (silently bypassed
+  otherwise; lost 4× across one project's migrations), `SECURITY DEFINER`
+  functions need an `auth.uid()` self-check + pinned `search_path`, atomic
+  ledger decrements need `FOR UPDATE`, and missing explicit `GRANT`s show up as
+  `42501 permission denied` despite a valid RLS policy (Data API GRANT
+  enforcement).
+
 ## [0.4.0] — 2026-06-04
 
 ### Added

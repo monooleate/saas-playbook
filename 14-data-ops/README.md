@@ -59,6 +59,21 @@ For solo scale, the same pattern; just more relaxed timing.
 - Off-provider backup: a weekly `pg_dump` to S3/R2 is cheap insurance
   against provider-level disaster.
 
+## Files in this topic
+
+- [`checklist.md`](checklist.md) — the outline go-through (migrations,
+  backups, tenant isolation, audit log, GDPR).
+- [`best-practices.md`](best-practices.md) — the "why" and the patterns.
+- [`gotchas.md`](gotchas.md) — real things that broke.
+- [`supabase-performance-checklist.md`](supabase-performance-checklist.md) —
+  the deep-dive: a portable, vendor-neutral-where-possible **review gate** for
+  any Supabase-backed feature (RLS, indexing/query analysis, pooling,
+  compute & disk, read replicas, caching/CDN, pgvector, PG version) plus a
+  "what to do when it's slow" triage order. Includes the production-incident
+  RLS traps (`security_invoker` views, `SECURITY DEFINER` self-checks,
+  explicit `GRANT`s). Follows the `25-seo-geo/schema-graph-playbook.md`
+  artifact precedent.
+
 ## What goes in v0.2
 
 - Migration tooling per stack (Supabase migrations, Prisma Migrate,
