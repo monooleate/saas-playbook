@@ -13,6 +13,11 @@ shaped so you can plan sprints from it.
   gap-derived task across all topics; mirror of each topic's
   end-of-`README.md` `## Open gaps & sprint-pickable tasks` section.
   Sprint stories are picked from here.
+- [`SOURCES.md`](./SOURCES.md) — **source-consumption ledger**. One row
+  per ingested source (note, transcript, export, prior plan), tracking
+  whether it's been fully mined into the topic docs. MATRIX/GAPS track
+  *output* coverage; this tracks *input* coverage — the companion that
+  stops raw material from silently falling through.
 - [`sprint-template.md`](./sprint-template.md) — copy this when
   starting a new sprint planning doc.
 - [`sprints/`](./sprints/) — actual sprint plans live here, one
@@ -42,6 +47,21 @@ The playbook is meant to drive a real SaaS build. Use it like this:
 3. If new gaps appear inside the topic during work, add them to
    `MATRIX.md` rather than carrying them in your head.
 4. At sprint end: short retro at the bottom of the sprint file.
+
+### When you ingest a source
+
+Founder notes, an interview transcript, a spreadsheet export, a prior
+business plan — anything you mine for content:
+
+1. Add a row to [`SOURCES.md`](./SOURCES.md) with status `⚪` the moment
+   it arrives, so it can't be forgotten.
+2. As you lift content into topic docs / gaps, move it `⚪`→`🟡` (note the
+   remainder) or `⚪`→`🟢`, recording the target topic + `G-NN-NN`.
+3. Mark obsolete material `⚫` with a reason — don't delete; provenance
+   matters.
+
+A source is only "done" when its row is 🟢 or ⚫. This is the input-side
+mirror of shipping a topic.
 
 ## Why this shape
 
@@ -82,3 +102,9 @@ The matrix philosophy (see [`../CLAUDE.md`](../CLAUDE.md)) is that each
 topic produces three outputs: content, gap analysis, sprint-pickable
 tasks. `GAPS.md` is where output #3 collects centrally; the topic doc's
 end-of-file section is the same items in context.
+
+MATRIX/GAPS/sprints all track **output** (what's written, what's left).
+[`SOURCES.md`](./SOURCES.md) tracks **input** (whether the raw material
+fed in has been fully mined). Both are needed: a project whose topics all
+look "done" can still have half-consumed founder notes sitting unused —
+the ledger makes that visible.

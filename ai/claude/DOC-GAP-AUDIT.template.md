@@ -214,6 +214,9 @@ internal-docs/
 ├── product/                  ← termék-indoklás (Discovery, PRD, user stories)
 │   ├── PRD.md
 │   └── USER-STORIES.md
+├── source-notes/             ← beolvasott nyersanyag + konzumációs ledger
+│   ├── CONSUMED.md           ← source-consumption ledger (input-fedettség)
+│   └── <founder-notes, transcripts, exports>
 ├── tutorials/                ← tanulás-orientált, új fejlesztőnek
 │   └── new-developer-onboarding.md
 ├── changelog/                ← idővonalas változások
@@ -222,6 +225,14 @@ internal-docs/
 │   └── INCIDENT-YYYY-MM-DD-...md
 └── archive/                  ← történelmi, már nem aktív
 ```
+
+> **Input- vs output-fedettség.** A 3. szekció a *kimenetet* követi (mely
+> topicnak van kész doksija). A *bemenetet* — hogy minden beolvasott forrás
+> (alapítói jegyzet, interjú-leirat, export, korábbi terv) ki van-e merítve —
+> a `source-notes/CONSUMED.md` **source-consumption ledger** követi
+> (`🟢` kimerítve · `🟡` részben · `⚪` még nem · `⚫` elavult). A kettő együtt
+> zárja a kört: amíg ott `⚪`/🟡-maradék van, egy forrás feldolgozatlan, akkor
+> is, ha a topicok „késznek" tűnnek. (Mintát lásd: `saas-playbook/tasks/SOURCES.md`.)
 
 ---
 

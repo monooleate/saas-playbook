@@ -77,6 +77,13 @@ frissítés szükséges").
 [ ] Topic-doksi végén levő gap-szakasz módosult session során
     (új gap hozzáadva / lezárt gap áthúzva / leírás változott)?
     → DOC-GAP-AUDIT 5. szekció is reflektálja a változást?
+
+[ ] Forrásanyagból (alapítói jegyzet, interjú-leirat, export, korábbi
+    terv) merítettél tartalmat, vagy új forrást olvastál be?
+    → source-consumption ledger (pl. internal/source-notes/CONSUMED.md)
+      frissítve? (Input-fedettség: ⚪/🟡 → 🟢, vagy ⚫ ha elavult.) Amíg
+      ⚪/🟡-maradék van, a forrás nincs kimerítve — akkor is, ha a topicok
+      "késznek" tűnnek.
 ```
 
 ### CLAUDE.md self-update

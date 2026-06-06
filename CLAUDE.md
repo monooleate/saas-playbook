@@ -1,9 +1,12 @@
 # CLAUDE.md — saas-playbook (meta-projekt önmagáról)
 
 > Ezt Claude Code minden session elején olvassa el. Soha ne töröld.
-> Utolsó frissítés: **2026-05-04** — (1) első kiadás: mátrix-filozófia
-> + gap-workflow + self-update szabály rögzítve. (2) `ai/claude/`
-> template-kit frissítve ugyanezekkel a mintákkal derived SaaS
+> Utolsó frissítés: **2026-06-06** — source-consumption ledger
+> (`tasks/SOURCES.md`) bevezetve mint input-fedettség-tracker (a
+> MATRIX/GAPS output-oldali párja); workflow + self-update + "Mit gyűjt mi"
+> frissítve; 24→25 topic-szám korrigálva. Korábban (2026-05-04):
+> (1) első kiadás: mátrix-filozófia + gap-workflow + self-update szabály.
+> (2) `ai/claude/` template-kit ugyanezekkel a mintákkal derived SaaS
 > projektekhez (CLAUDE.template.md + DOC-GAP-AUDIT.template.md +
 > END-OF-SESSION-CHECKLIST.md + README.md).
 
@@ -12,7 +15,7 @@
 ## TL;DR — Mit kell tudni első session-ben
 
 Ez **NEM egy SaaS app**, hanem egy stack-független **public playbook**
-solo founderoknek. 24 topic, mindegyik egy mappa (`NN-topic/`) és egy
+solo founderoknek. 25 topic, mindegyik egy mappa (`NN-topic/`) és egy
 sor a `tasks/MATRIX.md`-ben.
 
 A három legfontosabb minta:
@@ -32,7 +35,7 @@ internal doksik (pl. `ai/claude/`) **magyarul** vannak — ezt tartsd.
 ## Projekt áttekintés
 
 - **Cél:** stack-független SaaS knowledge base solo foundereknek.
-- **Felépítés:** 24 topic-mappa (`01-infrastructure/` … `24-launch-playbook/`),
+- **Felépítés:** 25 topic-mappa (`01-infrastructure/` … `25-seo-geo/`),
   mindegyik egy `README.md` + `checklist.md` + `best-practices.md` +
   `gotchas.md` + `examples/` szerkezettel.
 - **Lifecycle:** Stage 0–4, lásd [`ROADMAP.md`](./ROADMAP.md).
@@ -112,10 +115,12 @@ A `tasks/sprints/YYYY-WNN-*.md` innen szed sorokat.
 | `tasks/GAPS.md` | Item-szintű backlog (összes gap egyben) | Egy sor / konkrét task |
 | `NN-topic/README.md` (vége) | A topic saját gap-jei | Item-lista, kontextusban |
 | `tasks/sprints/*.md` | Aktív sprint-tervek | Story-szintű, GAPS.md-ből pickelt |
+| `tasks/SOURCES.md` | **Forrás-konzumáció** (input-fedettség) | Egy sor / beolvasott forrás |
 
-A négy szint redundáns — szándékosan. Sprint-tervező a MATRIX-ot szűri
-topicra, a GAPS.md-ből pickel itemeket, a sprint-fájlba bemásolja, a
-topic doc-ban látja a kontextust.
+A MATRIX/GAPS/sprints a **kimenetet** követi (mi van megírva, mi maradt);
+a `tasks/SOURCES.md` az **input** oldalt — hogy a beolvasott nyersanyag
+(jegyzet, leirat, export, korábbi terv) ki van-e merítve. Amíg ott `⚪`/🟡
+sor van, egy forrás feldolgozatlan, akkor is, ha a topicok „késznek" tűnnek.
 
 ---
 
@@ -137,7 +142,10 @@ topic doc-ban látja a kontextust.
    a. `tasks/MATRIX.md` Status oszlop + Remaining work cella.
    b. Gyökér `README.md` mátrixa (ha van).
    c. `CHANGELOG.md` ha jelentős.
-7. **CLAUDE.md self-update** — lásd köv. szakasz.
+7. **Ha forrásból (jegyzet/leirat/export/terv) merítettél** — frissítsd a
+   `tasks/SOURCES.md` ledgert (`⚪/🟡` → `🟢`, vagy `⚫` ha elavult), a cél-topic
+   + `G-NN-NN` rögzítésével. Így a beolvasott anyag nem marad félig kihasználva.
+8. **CLAUDE.md self-update** — lásd köv. szakasz.
 
 ---
 
@@ -162,6 +170,9 @@ topic doc-ban látja a kontextust.
 
 [ ] Új mező / oszlop a MATRIX.md-ben vagy GAPS.md-ben?
     → CLAUDE.md "Mit gyűjt mi" táblázat frissítve?
+
+[ ] Forrásból (jegyzet/leirat/export/terv) merítettél tartalmat?
+    → tasks/SOURCES.md ledger frissítve (input-fedettség, ⚪/🟡 → 🟢/⚫)?
 
 [ ] Sprint indult / zárult?
     → tasks/MATRIX.md "Active sprints" tábla + lent "Aktuális állapot"
@@ -238,6 +249,8 @@ duplikált munkához vezet.
   (sprint pickup forrása).
 - [`tasks/GAPS.md`](./tasks/GAPS.md) — item-szintű backlog (gap-ek
   központi gyűjtése).
+- [`tasks/SOURCES.md`](./tasks/SOURCES.md) — source-consumption ledger
+  (input-fedettség: beolvasott forrás → topic/gap).
 - [`tasks/sprints/`](./tasks/sprints/) — egy fájl / aktív sprint.
 - [`tasks/sprint-template.md`](./tasks/sprint-template.md) — másold ezt
   új sprint induláskor.

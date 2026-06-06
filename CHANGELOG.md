@@ -6,6 +6,31 @@ versioned by *matrix shape*: bumping the major number when topics are added or
 removed, the minor when an existing topic gains a major rewrite, and the patch
 for everything else.
 
+## [0.4.3] — 2026-06-06
+
+### Added
+
+- **`tasks/SOURCES.md` — source-consumption ledger.** A new tracker for
+  *input* coverage: whether every ingested source (founder notes, interview
+  transcripts, spreadsheet exports, a prior business plan) has been fully mined
+  into the topic docs, or deliberately marked obsolete (`🟢/🟡/⚪/⚫`). MATRIX
+  and GAPS track *output* coverage; this is their input-side companion — it
+  stops half-consumed raw material from silently falling through when the topics
+  all look "done." Genericized from a real project (OPEREX). Status legend,
+  per-section sub-table pattern, and workflow included.
+- `ai/claude/DOC-GAP-AUDIT.template.md` — derived projects get a
+  `source-notes/CONSUMED.md` slot in the §6 structure + an input-vs-output note,
+  so every future SaaS build inherits the ledger discipline.
+
+### Changed
+
+- `tasks/README.md` — `SOURCES.md` added to the files list, a "When you ingest
+  a source" workflow step, and an input-vs-output note in the granularity section.
+- `CLAUDE.md` — "Mit gyűjt mi" table + topic workflow + self-update checklist now
+  cover the source ledger; topic count corrected 24 → 25 (structural fact).
+- `ai/claude/END-OF-SESSION-CHECKLIST.md` — new check: did you mine a source? →
+  update the consumption ledger.
+
 ## [0.4.2] — 2026-06-05
 
 ### Added
