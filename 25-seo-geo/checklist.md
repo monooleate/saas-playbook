@@ -147,6 +147,63 @@ JS engines than Googlebot.
   the founder's native language. **[CO]** moved root from HU to EN; HU
   dropped to `/hu/` with no ranking loss.
 
+### 2.4 Host + protocol canonicalization (not just the slash)
+
+- `[!]` Pick one canonical **host** (apex *or* `www`) and **301** the
+  other. Serving `example.eu, www.example.eu` from one server block returns
+  200 on **both** → duplicate hosts the canonical tag only mitigates.
+  **[OX]** A top-level `redir @www https://example.eu{uri} permanent`
+  (Caddy) runs before the route handlers, so it also covers app/login paths.
+- `[!]` Force **https**: 301 http→https (automatic with Caddy/Let's
+  Encrypt; assert it on other stacks). End state: one host, one protocol,
+  one slash policy — every other variant 301s to the canonical URL.
+
+---
+
+## Phase 2.5 — Social sharing, PWA chrome & custom error pages
+
+> Not "crawl/index/schema", but every audit checks them and they're cheap,
+> high-visibility wins. A perfectly indexed page can still unfurl as a bare
+> text stub or serve a soft-404. **[OX]**
+
+### 2.5.1 Open Graph + Twitter Card
+
+- `[!]` `og:title`, `og:description`, `og:url`, `og:type`, `og:site_name`,
+  and an **absolute** `og:image` URL — social scrapers fetch the page in
+  isolation, so a root-relative path fails. **[OX]**
+- `[!]` `twitter:card=summary_large_image` + `twitter:image` (absolute). X
+  does **not** render SVG — the image must be a raster (PNG/JPG). **[OX]**
+- `[ ]` `og:image:width`/`:height`/`:type`/`:alt` set; `og:title` ~40–60
+  chars, `og:description` ~110–160 (reuse the page `<title>`/meta where
+  honest). **[OX]**
+- `[ ]` One **1200×630** share image (1.91:1, <5 MB), **generated from the
+  vector brand source** (e.g. `sharp` rasterizing an SVG) at build time —
+  on-brand, versioned, not a hand-export. Doubles as the SERP/LLM visual
+  (Phase 7). **[OX][MM][TW]**
+
+### 2.5.2 PWA / favicon / icon set
+
+- `[ ]` `manifest` linked (name, `theme_color`, `background_color`, icons
+  192 + 512, `display`). **[OX]**
+- `[ ]` `apple-touch-icon` (180, full-bleed) + favicon set: SVG **and** a
+  PNG-based `favicon.ico` (16/32) — auditors and legacy clients probe the
+  raster even though modern browsers accept SVG. **[OX]**
+- `[ ]` `theme-color` (+ `apple-mobile-web-app-*` if installable). **[CO]**
+
+### 2.5.3 Custom error pages (correct status)
+
+- `[!]` Branded `404` and `5xx` pages served with the **real status code**
+  — a custom page returned as HTTP 200 is a **soft-404** (read as
+  duplicate/low-quality). **[OX]**
+- `[~]` On static hosts, author them as standalone files (`public/404.html`
+  / `500.html`, inline CSS/JS, no pipeline dependency) and serve via the
+  error handler. Caddy `handle_errors { root *…; rewrite @e4xx /404.html;
+  file_server }` **preserves** the status. Astro caveat: `404.astro` +
+  `trailingSlash:'always'` builds `404/index.html`, not `404.html` — a
+  `public/*.html` file sidesteps it. **[OX]**
+- `[~]` The 5xx page also catches a downstream `reverse_proxy` 502/503 (app
+  down) → a branded page instead of a stack stub. **[OX]**
+
 ---
 
 ## Phase 3 — Structured data (JSON-LD `@graph`)
@@ -357,7 +414,14 @@ JS engines than Googlebot.
   `prefers-reduced-motion`. WCAG failures often = structured-data /
   parsing failures. **[CO][GR]**
 - `[ ]` PWA/mobile meta present (`theme-color`, `apple-mobile-web-app-*`)
-  if it's an installable tool. **[CO]**
+  if it's an installable tool. **[CO]** (Full PWA/icon set in Phase 2.5.)
+- `[ ]` Eliminate **render-blocking resources**: inline critical CSS (on a
+  lean site, inline *all* page CSS so first paint needs no extra round-trip
+  — Astro `build.inlineStylesheets:'always'`), defer/`async` non-critical
+  JS. LCP/CLS/INP are ranking inputs and real UX. **[OX]**
+- `[~]` Security headers **delivered** (verify with curl, not config — see
+  G-01): HSTS (`Strict-Transport-Security`) on https-only sites; ideally
+  also CSP, `X-Content-Type-Options: nosniff`, `Referrer-Policy`. **[CO][OX]**
 
 ---
 

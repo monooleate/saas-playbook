@@ -3,7 +3,8 @@
 > Real things that broke or were caught in audit, written as
 > situation → symptom → root cause → fix. Provenance: **[MM]**
 > matekmegoldasok (Deno Fresh), **[CO]** cutoptim (Astro), **[GR]**
-> grabit (Astro + SvelteKit), **[TW]** trackwell (Astro).
+> grabit (Astro + SvelteKit), **[TW]** trackwell (Astro), **[OX]** operex
+> (SvelteKit app + Astro landing, self-hosted Caddy/Hetzner).
 
 ## G-01 — Security headers configured but not delivered **[CO]**
 
@@ -171,3 +172,77 @@
 - **Root cause:** Default author wiring pointed at the org node.
 - **Fix:** Point `author` at the founder `Person` node (`#founder`).
   One-line change, scored +7 E-E-A-T.
+
+## G-16 — Custom 404 served with HTTP 200 (soft-404) **[OX]**
+
+- **Situation:** Static Astro landing behind Caddy. An SEO audit flagged
+  "no custom 404." The framework's `src/pages/404.astro` existed but with
+  `trailingSlash: 'always'` the static build emitted `dist/404/index.html`,
+  not `dist/404.html`, and the host had no error handler.
+- **Symptom:** Unknown URLs returned the generic server 404 (or, with a
+  catch-all `try_files … /index.html` fallback, the homepage with **HTTP
+  200** — a soft-404 Google treats as duplicate/low-quality content).
+- **Root cause:** Two traps stacked: (a) Astro's `404.astro` output path
+  collides with `trailingSlash:'always'`; (b) static hosts don't serve an
+  error page unless explicitly told, and a naive rewrite serves it as 200.
+- **Fix:** Author error pages as **self-contained `public/404.html` +
+  `public/500.html`** (inline CSS/JS, no pipeline dependency) — the build
+  copies them verbatim to the exact filenames. Wire the host to serve them
+  **and preserve the status code**. Caddy: `handle_errors { root * <dist>;
+  rewrite @e4xx /404.html; rewrite @e5xx /500.html; file_server }` —
+  `file_server` inside `handle_errors` keeps the original error status
+  (no soft-404). The 5xx page also catches a downstream `reverse_proxy`
+  502/503 (e.g. the app is down) → a branded page instead of a stack-stub.
+
+## G-17 — `www` and apex served from one block → host duplication **[OX]**
+
+- **Situation:** Caddy site address `example.eu, www.example.eu { … }` —
+  both hostnames served the **same** content with a 200.
+- **Symptom:** Audit flagged URL-canonicalization (HIGH). `www.example.eu/`
+  and `example.eu/` were both indexable, duplicating every page on two
+  hosts. The canonical tag mitigated but didn't resolve it.
+- **Root cause:** Canonicalization is more than trailing-slash (G-02): the
+  **host** (www vs apex) and **protocol** (http vs https) must also resolve
+  to one. Sharing a server block serves both hosts without a redirect.
+- **Fix:** 301 the non-canonical host to the canonical one:
+  `@www host www.example.eu` + `redir @www https://example.eu{uri}
+  permanent` (a top-level `redir` runs before `handle`, so it also covers
+  app/login paths). http→https is automatic with Caddy/Let's Encrypt; on
+  other stacks assert it too. Pick one canonical host and 301 every variant.
+
+## G-18 — Product entity present, but `offers` only on the pricing page **[OX]**
+
+- **Situation:** The unified `@graph` (G-05) put one `SoftwareApplication`
+  (`@id:#software`) on every page; `offers` were added only on `/pricing`
+  to avoid duplicating the price. The homepage `SoftwareApplication` had
+  `aggregateRating` but **no `offers`**.
+- **Symptom:** A schema checker run against the **homepage** (the primary
+  product/`mainEntity` page) reported "no offer" — the page most likely to
+  be parsed as the product looked incomplete.
+- **Root cause:** Scoping `offers` to one route, not to the entity. The
+  product entity is the same `@id` everywhere; its offers shouldn't depend
+  on which page rendered it. (Distinct from G-12 = a *tier missing* from
+  the offers array.)
+- **Fix:** One shared offer builder feeds **both** the homepage and the
+  pricing page's `SoftwareApplication`, so the primary product page carries
+  `offers` + `aggregateRating` (the most complete form). Keep price omitted
+  (not the whole offer) while pricing is in draft — a priceless `Offer`
+  with `category`/`description` is still valid and useful.
+
+## G-19 — Social/OG image as a relative path or SVG → no preview **[OX]**
+
+- **Situation:** Pages set `og:title`/`og:description` but `og:image` was a
+  root-relative path (`/og.png`) — or an SVG — and there was no
+  `twitter:card`.
+- **Symptom:** Audit flagged missing/low-quality social preview; pasted
+  links rendered as a bare text stub on X/LinkedIn/Slack instead of a card.
+- **Root cause:** Social scrapers (Facebook/X/LinkedIn) fetch the page in
+  isolation and require an **absolute** `og:image` URL; X needs an explicit
+  `twitter:card` and **does not render SVG** — it needs a raster (PNG/JPG).
+- **Fix:** Emit `og:image` as an **absolute** URL (`new URL(path, site)`),
+  add `twitter:card=summary_large_image` + `twitter:image`, and ship a real
+  **1200×630 PNG** (1.91:1, <5 MB). Generate it from the vector brand
+  source at build/release time (e.g. `sharp` rasterizing an SVG) so it
+  stays on-brand and versioned, not hand-exported. Same for the icon set:
+  `apple-touch-icon` (180), manifest `192/512`, and a PNG `favicon.ico`
+  alongside the SVG — auditors and legacy clients look for the raster.

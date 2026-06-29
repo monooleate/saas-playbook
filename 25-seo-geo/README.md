@@ -1,9 +1,10 @@
 # 25 — SEO & GEO (AI Search)
 
-> **Status:** v0.1 — distilled from four production projects
+> **Status:** v0.1 — distilled from five production projects
 > (matekmegoldasok.hu / Deno Fresh, cutoptim.com / Astro, grabit.hu /
-> Astro + SvelteKit, trackwell.eu / Astro). Every item below has a
-> provenance: it was shipped, broke, or was audited in one of those repos.
+> Astro + SvelteKit, trackwell.eu / Astro, operex.eu / SvelteKit + Astro,
+> self-hosted Caddy). Every item below has a provenance: it was shipped,
+> broke, or was audited in one of those repos.
 >
 > **Scope vs. [topic 17 — Marketing Site & SEO](../17-marketing-seo/):**
 > topic 17 is about *building the marketing site* (framework, OG image
@@ -19,7 +20,8 @@ Two overlapping disciplines, one pipeline:
 
 - **SEO (Search Engine Optimization)** — getting ranked and clicked in
   classic search (Google, Bing): crawlability, indexation, canonical/
-  hreflang correctness, sitemaps, Core Web Vitals, meta tags.
+  hreflang correctness, sitemaps, Core Web Vitals, meta tags, social cards,
+  and host/protocol + error-page hygiene (Phase 2.4 / 2.5).
 - **GEO (Generative Engine Optimization)** — getting *cited* by answer
   engines (ChatGPT, Perplexity, Claude, Gemini, Google AI Overviews,
   Bing Copilot): AI-crawler access, structured data the model can ground

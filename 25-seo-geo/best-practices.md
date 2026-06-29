@@ -144,3 +144,82 @@ parity check in CI (every key present, arrays same length).
 
 - Google international targeting
   <https://developers.google.com/search/docs/specialty/international/managing-multi-regional-sites>
+
+## 10. Social sharing and install chrome are part of "findable"
+
+A page can be perfectly indexed and still share as a bare text stub. The
+share card and the install/icon chrome are cheap, high-visibility wins
+that audits always check:
+
+- **Open Graph + Twitter Card, completely.** `og:title`, `og:description`,
+  `og:url`, `og:type`, `og:site_name`, and an **absolute** `og:image`
+  (social scrapers fetch the page in isolation — a root-relative path
+  fails). Add `twitter:card=summary_large_image` + `twitter:image`; X does
+  not render SVG, so the image must be a raster.
+- **One real 1200×630 share image** (1.91:1, <5 MB, PNG/JPG). It doubles
+  as the visual a SERP or an LLM answer can surface. **Generate it from
+  the vector brand source** (e.g. `sharp` rasterizing an SVG) at build
+  time so it's on-brand, versioned, and not a stale hand-export.
+- **PWA + favicon set.** `manifest` (name, theme/background color, icons
+  192/512), `apple-touch-icon` (180), and a favicon set that includes a
+  **PNG `favicon.ico`** alongside the SVG — auditors and legacy clients
+  probe for the raster even though modern browsers accept SVG.
+- **Length discipline carries to OG too:** `og:title` ~40–60 chars,
+  `og:description` ~110–160. Reuse the page's `<title>`/meta where honest.
+
+Why it matters for GEO: answer engines and social unfurlers both lift the
+OG image and title; a missing/relative image is a silent quality gap.
+
+- Open Graph protocol <https://ogp.me/> · X Cards
+  <https://developer.x.com/en/docs/twitter-for-websites/cards/overview/abouts-cards>
+- Web App Manifest <https://developer.mozilla.org/docs/Web/Manifest>
+
+## 11. The technical hygiene audits flag but checklists forget
+
+Four items that don't fit the crawl/index/schema buckets but cost real
+audit points and trust:
+
+- **Custom error pages that preserve status.** Ship a branded `404` and
+  `5xx` page, and make sure the host returns them with the **real status
+  code** — a custom page served as HTTP 200 is a *soft-404* (Google reads
+  it as duplicate content). On static hosts, author them as standalone
+  files and serve via the error handler (Caddy `handle_errors` +
+  `file_server` preserves the code). A 5xx page also covers a downstream
+  app/proxy outage with a branded screen instead of a stack stub.
+- **Canonicalize host and protocol, not just the slash.** Pick one
+  canonical host (apex *or* `www`) and one protocol (https) and **301**
+  every other variant. Serving `www` and apex from the same block returns
+  200 on both — duplicate hosts the canonical tag only mitigates. (The
+  trailing-slash half of this is §3 / G-02.)
+- **Eliminate render-blocking resources.** Inline critical CSS (small
+  sites: inline *all* page CSS so first paint needs no extra round-trip),
+  defer/`async` non-critical JS, `preload` fonts with `font-display:swap`.
+  Core Web Vitals (LCP/CLS/**INP**) are a ranking input and a real UX win.
+- **Verify security headers are *delivered*, not just declared.** Curl
+  production (G-01). At minimum HSTS (`Strict-Transport-Security`) on an
+  https-only site; ideally also a CSP, `X-Content-Type-Options: nosniff`,
+  and a `Referrer-Policy`. Config ≠ delivery — assert with the live curl.
+
+Caddy reference (static landing + app proxy): canonical host + error pages
+in one block —
+
+```caddy
+example.eu, www.example.eu {
+    @www host www.example.eu
+    redir @www https://example.eu{uri} permanent      # host canonicalization
+    handle_errors {
+        root * /var/www/site/dist
+        @e5xx expression {err.status_code} >= 500
+        rewrite @e5xx /500.html
+        @e4xx expression {err.status_code} < 500
+        rewrite @e4xx /404.html
+        file_server                                    # preserves the status code
+    }
+    # … app routes (reverse_proxy) + static landing (file_server) …
+}
+```
+
+- Google soft-404
+  <https://developers.google.com/search/docs/crawling-indexing/http-network-errors#soft-404-errors>
+- web.dev render-blocking <https://web.dev/articles/render-blocking-resources>
+- MDN HSTS <https://developer.mozilla.org/docs/Web/HTTP/Headers/Strict-Transport-Security>
